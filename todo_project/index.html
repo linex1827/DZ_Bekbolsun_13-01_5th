@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="core">
+        <script type="text/babel">
+            function Main() {
+                const [todo, setTodo] = React.useState({})
+                const [todos, setTodos] = React.useState([])
+
+                function addTodo(event) {
+                    event.preventDefault()
+                    setTodos([...todos,todo]) 
+                    console.log(todos)
+                }
+
+                return (
+                    <div>
+                        <form onSubmit={addTodo}>
+                            <input type="text" value={todo.value} onChange={(e) => setTodo(e.target.value)}/>
+                            <button>Добавить</button>
+                        </form>
+                        <TodoList allTodo={todos}/>
+                    </div>
+                )
+            }
+
+            function TodoList({allTodo}) {
+                return (
+                    <ol>
+                        {allTodo.map((element, index) => <TodoItem key={index} item={element}/>)}
+                     </ol>
+                )
+            }
+
+            function TodoItem({item}) {
+                return <li>{item}</li>
+            }
+
+            ReactDOM.render(<Main/>, document.getElementById("core"))
+        </script>
+    </div>
+</body>
+</html>
